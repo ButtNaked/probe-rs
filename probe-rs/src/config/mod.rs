@@ -16,4 +16,4 @@ pub use memory::{
     FlashRegion, MemoryRange, MemoryRegion, PageInfo, RamRegion, SectorDescription, SectorInfo,
 };
 pub use registry::RegistryError;
-pub use target::{Target, TargetParseError, TargetSelector};
+pub use target::{Target, TargetDescriptionSource, TargetParseError, TargetSelector};

@@ -1,4 +1,4 @@
-use super::target::Target;
+use super::target::{Target, TargetDescriptionSource};
 use crate::config::{Chip, ChipFamily, ChipInfo};
 use crate::core::CoreType;
 use lazy_static::lazy_static;
@@ -55,6 +55,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("M0"),
+        source: TargetDescriptionSource::Generic,
     },
     ChipFamily {
         name: Cow::Borrowed("Generic Cortex-M4"),
@@ -67,6 +68,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("M4"),
+        source: TargetDescriptionSource::Generic,
     },
     ChipFamily {
         name: Cow::Borrowed("Generic Cortex-M3"),
@@ -79,6 +81,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("M3"),
+        source: TargetDescriptionSource::Generic,
     },
     ChipFamily {
         name: Cow::Borrowed("Generic Cortex-M33"),
@@ -91,6 +94,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("M33"),
+        source: TargetDescriptionSource::Generic,
     },
     ChipFamily {
         name: Cow::Borrowed("Generic Cortex-M7"),
@@ -103,6 +107,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("M7"),
+        source: TargetDescriptionSource::Generic,
     },
     ChipFamily {
         name: Cow::Borrowed("Generic Riscv"),
@@ -115,6 +120,7 @@ const GENERIC_TARGETS: [ChipFamily; 6] = [
         }]),
         flash_algorithms: Cow::Borrowed(&[]),
         core: Cow::Borrowed("riscv"),
+        source: TargetDescriptionSource::Generic,
     },
 ];
 
@@ -243,7 +249,12 @@ impl Registry {
             .cloned()
             .collect();
 
-        Ok(Target::new(chip, chip_algorithms, core))
+        Ok(Target::new(
+            chip,
+            chip_algorithms,
+            core,
+            family.source.clone(),
+        ))
     }
 
     fn add_target_from_yaml(&mut self, path_to_yaml: &Path) -> Result<(), RegistryError> {
