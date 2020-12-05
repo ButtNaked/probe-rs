@@ -246,3 +246,30 @@ fn download_elf<'buffer, T: Read + Seek>(
         Ok(())
     }
 }
+
+/// Download bytes
+pub fn download_bytes(
+    session: &mut Session,
+    base_address: u32,
+    bytes: &[u8],
+    options: DownloadOptions<'_>,
+) -> Result<(), FileDownloadError> {
+    let memory_map = session.memory_map().to_vec();
+    let mut loader = FlashLoader::new(&memory_map, options.keep_unwritten_bytes);
+
+    loader.add_data(
+        base_address,
+        bytes,
+    )?;
+
+    loader
+        // TODO: hand out chip erase flag
+        .commit(
+            session,
+            options.progress.unwrap_or(&FlashProgress::new(|_| {})),
+            false,
+        )
+        .map_err(FileDownloadError::Flash)
+}
+
+
