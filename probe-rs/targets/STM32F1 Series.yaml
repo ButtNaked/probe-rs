@@ -958,6 +958,11 @@ variants:
             start: 134217728
             end: 134348800
           is_boot_memory: true
+      - Flash:
+          range:
+            start: 536868864 
+            end: 536868879
+          is_boot_memory: false
     flash_algorithms:
       - stm32f10x_128
       - stm32f10x_opt
@@ -1123,6 +1128,11 @@ variants:
             start: 134217728
             end: 134348800
           is_boot_memory: true
+      - Flash:
+          range:
+            start: 536868864 
+            end: 536868879
+          is_boot_memory: false
     flash_algorithms:
       - stm32f10x_128
       - stm32f10x_opt
@@ -1273,6 +1283,11 @@ variants:
             start: 134217728
             end: 135266304
           is_boot_memory: true
+      - Flash:
+          range:
+            start: 536868864 
+            end: 536868879
+          is_boot_memory: false
     flash_algorithms:
       - stm32f10x_1024
       - stm32f10x_opt
